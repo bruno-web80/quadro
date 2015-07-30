@@ -4,14 +4,14 @@ angular.module('controllers').controller('ProfessoresController', ['$scope','Pro
     $scope.$on('$viewContentLoaded', function() {
 
     });
-    var resetForm = function() {
+    $scope.resetForm = function() {
       //EFETUA O RESET COM VALORES PADRÕES
       Professor.reset().then(function(data){
         $scope.professor = data;
       }, function(erro){
         alert(erro);
       });
-    }; resetForm();
+    }; $scope.resetForm();
 
     var getAll = function() {
       //RECUPERA TODOS OS REGISTROS (init)
@@ -37,7 +37,8 @@ angular.module('controllers').controller('ProfessoresController', ['$scope','Pro
     }; getAll();
 
     //EXCLUI UM REGISTRO
-    $scope.delete = function(_id) {
+    $scope.delete = function(_id, ev) {
+      angular.element(ev.target).parents('.collapsible-header:first').addClass('active'); //FIX OPEN
       if (confirm("Tem certeza de que deseja excluir esse registro?")==true) {
         Professor.delete(_id).then(function(retorno){
           getAll();
@@ -47,10 +48,24 @@ angular.module('controllers').controller('ProfessoresController', ['$scope','Pro
       }
     };
 
+    $scope.edit = function(_id, ev) {
+      angular.element(ev.target).parents('.collapsible-header:first').addClass('active'); //FIX OPEN
+      if ($scope.professor.id!=undefined && $scope.professor.id == _id) {
+          $scope.resetForm();
+      } else {
+        Professor.getById(_id).then(function(retorno){
+          $scope.professor = retorno;
+          //getAll();
+        },function(erro){
+          alert(erro);
+        });
+      }
+    };
+
     //SALVA O REGISTRO
     $scope.save = function() {
       Professor.save($scope.professor).then(function(retorno){
-          resetForm();
+          $scope.resetForm();
           getAll();
       },function(erro){
           alert(erro);

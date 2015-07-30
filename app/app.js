@@ -14,6 +14,8 @@ var web80App = angular.module('web80', [
 
 web80App.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
 
+  var timestamp = new Date().getTime(); //FIX CACHE
+
   // Redirect any unmatched url
   $urlRouterProvider.otherwise("/");
 
@@ -22,15 +24,15 @@ web80App.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProv
               //abstract: true,
               views: {
                   "vwHeader@main": {
-                      templateUrl: 'app/views/common/header.html',
+                      templateUrl: 'app/views/common/header.html?'+timestamp,
                       controller: 'HeaderController'
                   },
                   "vwFooter@main": {
-                      templateUrl: 'app/views/common/footer.html',
+                      templateUrl: 'app/views/common/footer.html?'+timestamp,
                       //controller: 'FooterController'
                   },
                   "@": {
-                      templateUrl: 'app/views/main.html',
+                      templateUrl: 'app/views/main.html?'+timestamp,
                       controller: 'MainController'
                   }
               },
@@ -44,7 +46,7 @@ web80App.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProv
               data: {pageTitle: 'Home', pageSubTitle: 'Home'},
               views: {
                   "@main": {
-                      templateUrl: 'app/views/home.html?1',
+                      templateUrl: 'app/views/home.html?'+timestamp,
                       controller: 'HomeController'
                   }
               }
@@ -54,7 +56,7 @@ web80App.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProv
               data: {pageTitle: 'Cursos', pageSubTitle: 'Cursos'},
               views: {
                   "@main": {
-                      templateUrl: 'app/views/cursos.html?1',
+                      templateUrl: 'app/views/cursos.html?'+timestamp,
                       controller: 'CursosController'
                   }
               }
@@ -64,7 +66,7 @@ web80App.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProv
               data: {pageTitle: 'disciplinas', pageSubTitle: 'disciplinas'},
               views: {
                   "@main": {
-                      templateUrl: 'app/views/disciplinas.html?2',
+                      templateUrl: 'app/views/disciplinas.html?'+timestamp,
                       controller: 'DisciplinasController'
                   }
               }
@@ -74,7 +76,7 @@ web80App.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProv
               data: {pageTitle: 'horarios', pageSubTitle: 'horarios'},
               views: {
                   "@main": {
-                      templateUrl: 'app/views/horarios.html?3',
+                      templateUrl: 'app/views/horarios.html?'+timestamp,
                       controller: 'HorariosController'
                   }
               }
@@ -84,7 +86,7 @@ web80App.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProv
               data: {pageTitle: 'professores', pageSubTitle: 'professores'},
               views: {
                   "@main": {
-                      templateUrl: 'app/views/professores.html?2',
+                      templateUrl: 'app/views/professores.html?'+timestamp,
                       controller: 'ProfessoresController'
                   }
               }
@@ -94,8 +96,18 @@ web80App.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProv
               data: {pageTitle: 'turmas', pageSubTitle: 'turmas'},
               views: {
                   "@main": {
-                      templateUrl: 'app/views/turmas.html?2',
+                      templateUrl: 'app/views/turmas.html?'+timestamp,
                       controller: 'TurmasController'
+                  }
+              }
+          })
+          .state('main.grades', {
+              url: "/grades",
+              data: {pageTitle: 'grades', pageSubTitle: 'grades'},
+              views: {
+                  "@main": {
+                      templateUrl: 'app/views/grades.html?'+timestamp,
+                      controller: 'GradesController'
                   }
               }
           })
@@ -104,7 +116,7 @@ web80App.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProv
               data: {pageTitle: 'quadros', pageSubTitle: 'quadros'},
               views: {
                   "@main": {
-                      templateUrl: 'app/views/quadros.html?2',
+                      templateUrl: 'app/views/quadros.html?'+timestamp,
                       controller: 'QuadrosController'
                   }
               }

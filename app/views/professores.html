@@ -7,7 +7,7 @@
         <form class="col s12" ng-submit="save()">
           <div class="input-field">
             <input id="professor_nome" value="" type="text" ng-model="professor.nome" required />
-            <label for="professor_nome">Nome da professor</label>
+            <label for="professor_nome">Nome do professor</label>
           </div>
           <!--
           <b>Quais disciplinas esse professor tem aptidão?</b><br />
@@ -16,14 +16,20 @@
             <label ng-attr-for="{{'ck_'+disciplina.id}}">{{disciplina.nome}}</label>
           </div>
           -->
-          <button type="submit" class="btn">Inserir</button>
+          <button type="submit" class="btn" ng-class="professor.id ? 'blue':''">{{professor.id ? 'Salvar' : 'Inserir'}}</button>
+          <input type="button" class="btn orange" ng-show="professor.id" value="Cancelar" ng-click="resetForm()" />
         </form>
       </div>
       <div class="row">
         <div class="col s12">
+          <small ng-show="professores.length>0">Clique no professor para indicar sua disponibilidade de horário
+            <span class="green lighten-1 btn" style="height: 20px; padding: 10px;">&nbsp;</span> = Disponível | <span class="red lighten-1 btn" style="height: 20px; padding: 10px;">&nbsp;</span> = Indisponível</small>
           <ul class="collapsible popout" data-collapsible="accordion" watch>
             <li ng-repeat="professor in professores | orderBy:'nome'">
-              <div class="collapsible-header">{{professor.nome}}<a class="secondary-content" ng-click="delete(professor.id)"><i class="material-icons">delete</i></a></div>
+              <div class="collapsible-header">{{professor.nome}}
+                <a class="secondary-content red-text" ng-click="delete(professor.id, $event)"><i class="material-icons">delete</i></a>
+                <a class="secondary-content blue-text" ng-click="edit(professor.id, $event)"><i class="material-icons">edit</i></a>
+              </div>
               <div class="collapsible-body">
                 <table class="bordered hoverable">
                   <tbody>

@@ -25,7 +25,8 @@
             <input id="horario_descricao" value="" type="text" ng-model="horario.descricao" required />
             <label for="horario_descricao">Descrição:</label>
           </div>
-          <button type="submit" class="btn">Inserir</button>
+          <input type="submit" class="btn" ng-class="horario.id ? 'blue':''" value="{{horario.id ? 'Salvar' : 'Inserir'}}" />
+          <input type="button" class="btn orange" ng-show="horario.id" value="Cancelar" ng-click="resetForm()" />
         </form>
       </div>
       <div class="row">
@@ -38,7 +39,7 @@
               <tbody>
                 <tr ng-repeat="dHorario in pHorario | orderBy:'descricao' | groupBy:'dia'">
                   <td>{{dHorario[0].dia}}</td>
-                  <td ng-repeat="hor in dHorario">{{hor.descricao}}<a class="mouse-click" ng-click="delete(hor.id)"><i class="material-icons">delete</i></a></td>
+                  <td ng-repeat="hor in dHorario">{{hor.descricao}} <a class="mouse-click btn-floating red lighten-1 btn-small" ng-click="delete(hor.id, $event)"><i class="material-icons">delete</i></a></td>
                 </tr>
               </tbody>
             </table>

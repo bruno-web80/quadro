@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="section">
+    <!-- Grades -->
+    <div class="card-panel">
+
+      <h1>TELA EM MANUTENÇÃO...</h1>
+      <h5>Grades</h5>
+      <div class="row">
+        <form class="col s12" ng-submit="save()">
+          <div class="row">
+            <div class="col m6 s12">
+              <label for="grade_curso_id">Curso:</label>
+              <select id="grade_curso_id" name="grade_curso_id" class="browser-default" ng-model="grade.curso_id" required>
+                  <option value="" disabled selected>Selecione uma opção</option>
+                  <option ng-repeat="curso in cursos" value={{curso.id}}>{{curso.nome}}</option>
+              </select>
+            </div>
+            <div class="col m6 s12">
+              <label for="grade_turma_id">Turma:</label>
+              <select id="grade_turma_id" name="grade_turma_id" class="browser-default" ng-model="grade.turma_id" required>
+                  <option value="" disabled selected>Selecione uma opção</option>
+                  <option ng-show="grade.curso_id" ng-repeat="turma in turmas | orderBy:'nome' | filter:{curso_id: grade.curso_id}" value={{turma.id}}>{{turma.nome}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col m4 s12">
+              <label for="grade_disciplina_id">Disciplina:</label>
+              <select id="grade_disciplina_id" name="grade_disciplina_id" class="browser-default" ng-model="grade.disciplina_id" required>
+                  <option value="" disabled selected>Selecione uma opção</option>
+                  <option ng-repeat="disciplina in disciplinas | orderBy:'nome' | filter:inCurso" value={{disciplina.id}}>{{disciplina.nome}}</option>
+              </select>
+            </div>
+            <div class="col m4 s12">
+              <label for="grade_professor_id">Professor:</label>
+              <select id="grade_professor_id" name="grade_professor_id" class="browser-default" ng-model="grade.professor_id" required>
+                  <option value="" disabled selected>Selecione uma opção</option>
+                  <option ng-repeat="professor in professores" value={{professor.id}}>{{professor.nome}}</option>
+              </select>
+            </div>
+            <div class="col m4 s12 input-field">
+              <label for="grade_carga_horaria">Carga horária:</label>
+              <input name="grade_carga_horaria" id="grade_carga_horaria" value="" type="text" ng-model="grade.carga_horaria" required />
+            </div>
+          </div>
+          <input type="submit" class="btn" ng-class="grade.id ? 'blue':''" value="{{grade.id ? 'Salvar' : 'Inserir'}}" />
+          <input type="button" class="btn orange" ng-show="grade.id" value="Cancelar" ng-click="resetForm()" />
+        </form>
+      </div>
+      <div class="row">
+        <div class="col s12" ng-repeat="cGrades in grades | orderBy:['curso_id','carga_horaria'] | groupBy:'curso_id'">
+          <h5>{{getById(cursos,cGrades[0].curso_id).nome}}</h5>
+          <ul class="collapsible popout" data-collapsible="accordion" watch>
+            <li ng-repeat="grade in cGrades | orderBy:['disciplina_id','carga_horaria']">
+              <div class="collapsible-header">
+                {{getById(disciplinas,grade.disciplina_id).nome}}
+                &nbsp;::&nbsp;
+                {{getById(turmas,grade.turma_id).nome}}
+                &nbsp;::&nbsp;
+                {{getById(professores,grade.professor_id).nome}}
+                <a class="secondary-content red-text" ng-click="delete(grade.id, $event)"><i class="material-icons">delete</i></a>
+                <a class="secondary-content blue-text" ng-click="edit(grade.id, $event)"><i class="material-icons">edit</i></a>
+              </div>
+              <div class="collapsible-body">
+
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

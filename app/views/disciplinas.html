@@ -1,3 +1,5 @@
+
+
 <div class="container">
   <div class="section">
     <!-- disciplinas -->
@@ -9,15 +11,29 @@
             <input id="disciplina_nome" value="" type="text" ng-model="disciplina.nome" required />
             <label for="disciplina_nome">Nome da Disciplina</label>
           </div>
-          <button type="submit" class="btn">Inserir</button>
+          <div>
+            <label>Cursos que contém essa disciplina:</label>
+            <span ng-repeat="curso in cursos | orderBy:['nome']">
+              <input type="checkbox" name="disciplina_cursos_id" ng-attr-id="{{'disciplina_cursos_id'+curso.id}}" value="{{curso.id}}" ng-click="toggleCursoDisciplina(curso.id)" ng-checked="disciplina.cursos_id.indexOf(curso.id)>-1" />
+              <label ng-class="(disciplina.cursos_id.indexOf(curso.id)>-1) ? 'green-text' : 'grey-text'" class="ck-inline" ng-attr-for="{{'disciplina_cursos_id'+curso.id}}">{{curso.nome}}</label>
+            </span>
+          </div>
+          <button type="submit" class="btn" ng-class="disciplina.id ? 'blue':''">{{disciplina.id ? 'Salvar' : 'Inserir'}}</button>
+          <input type="button" class="btn orange" ng-show="disciplina.id" value="Cancelar" ng-click="resetForm()" />
         </form>
       </div>
       <div class="row">
         <div class="col s12">
           <ul class="collapsible popout" data-collapsible="accordion" watch>
             <li ng-repeat="disciplina in disciplinas | orderBy:'nome'">
-              <div class="collapsible-header">{{disciplina.nome}}<a class="secondary-content" ng-click="delete(disciplina.id)"><i class="material-icons">delete</i></a></div>
-              <div class="collapsible-body">
+              <div class="collapsible-header">{{disciplina.nome}}
+                <a class="secondary-content red-text" ng-click="delete(disciplina.id, $event)"><i class="material-icons">delete</i></a>
+                <a class="secondary-content blue-text" ng-click="edit(disciplina.id, $event)"><i class="material-icons">edit</i></a>
+              </div>
+              <div class="collapsible-body card-panel">
+                <span ng-repeat="curso in disciplina.cursos | orderBy:'nome'">
+                  <span class="btn">{{curso.nome}}</span>
+                </span>
               </div>
             </li>
           </ul>

@@ -12,3 +12,16 @@ body {
 .mouse-click {
   cursor: pointer !important;
 }
+
+.btn-small {
+  height: 25px  !important;
+  width: 25px  !important;
+}
+.btn-small.btn-floating i {
+  font-size: 1.3em !important;
+  line-height: 10px  !important;
+}
+.ck-inline {
+  padding-left: 22px !important;
+  padding-right: 20px !important;
+}

@@ -15,9 +15,11 @@ angular.module('controllers').controller('HorariosController', ['$scope','Horari
       alert(erro);
     });
 
-    var resetForm = function() {
-      $scope.horario.descricao='';
-    };
+    $scope.resetForm = function() {
+      if ($scope.horario!=undefined && $scope.horario.descricao!=undefined) {
+        $scope.horario.descricao='';
+      }
+    }; $scope.resetForm();
 
     var getAll = function() {
       //RECUPERA TODOS OS REGISTROS (init)
@@ -29,7 +31,8 @@ angular.module('controllers').controller('HorariosController', ['$scope','Horari
     }; getAll();
 
     //EXCLUI UM REGISTRO
-    $scope.delete = function(_id) {
+    $scope.delete = function(_id, ev) {
+      angular.element(ev.target).parents('.collapsible-header:first').addClass('active'); //FIX OPEN
       if (confirm("Tem certeza de que deseja excluir esse registro?")==true) {
         Horario.delete(_id).then(function(retorno){
           getAll();
@@ -39,10 +42,24 @@ angular.module('controllers').controller('HorariosController', ['$scope','Horari
       }
     };
 
+    $scope.edit = function(_id, ev) {
+      angular.element(ev.target).parents('.collapsible-header:first').addClass('active'); //FIX OPEN
+      if ($scope.horario.id!=undefined && $scope.horario.id == _id) {
+          $scope.resetForm();
+      } else {
+        Horario.getById(_id).then(function(retorno){
+          $scope.horario = retorno;
+          //getAll();
+        },function(erro){
+          alert(erro);
+        });
+      }
+    };
+
     //SALVA O REGISTRO
     $scope.save = function() {
       Horario.save($scope.horario).then(function(retorno){
-          resetForm();
+          $scope.resetForm();
           getAll();
       },function(erro){
           alert(erro);

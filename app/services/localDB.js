@@ -4,11 +4,20 @@ angular.module('services').service('localDB', ['$localStorage','$q', function($l
   */
   var objDefault = {
     cursos: {nome:null},
-    disciplinas: {nome:null},
+    disciplinas: {nome:null, cursos_id:null},
     professores: {nome:null, horarios_id: []},
-    turmas: {nome:null, curso_id:null},
-    horarios: {dia:null, periodo:null, descricao:null}
+    turmas: {nome: null, curso_id: null},
+    horarios: {dia: null, periodo: null, descricao:null},
+    grades: {curso_id: null, disciplina_id: null, turma_id: null, professor_id: null, carga_horaria: null},
+    quadros: {horario_id:null, grade_id:null}
   };
+
+  /* Método que apaga os registros
+  */
+  this.destroy = function(_obj) {
+      $localStorage[_obj]=null;
+      delete $localStorage[_obj];
+  }
 
   /* Método que retorna o valor padrão para o registro
   *
@@ -106,7 +115,7 @@ angular.module('services').service('localDB', ['$localStorage','$q', function($l
   */
   this.getNewId = function(_obj) {
     if ($localStorage[_obj]==undefined) {
-      $localStorage[_obj]=[];  
+      $localStorage[_obj]=[];
     }
     var lastObj = $localStorage[_obj][$localStorage[_obj].length-1];
     if (lastObj==undefined || lastObj.id==undefined) {
