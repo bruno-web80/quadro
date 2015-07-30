@@ -23,7 +23,7 @@ web80App.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProv
               views: {
                   "vwHeader@main": {
                       templateUrl: 'app/views/common/header.html',
-                      //controller: 'HeaderController'
+                      controller: 'HeaderController'
                   },
                   "vwFooter@main": {
                       templateUrl: 'app/views/common/footer.html',
