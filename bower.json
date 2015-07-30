@@ -1,0 +1,13 @@
+{
+  "name": "quadrodeaulas",
+  "description": "Sistema para gerar quadro de aulas",
+  "version": "1.0.0",
+  "dependencies": {
+    "angular": "~1.4.3",
+    "angular-ui-router": "~0.2.15",
+    "angular-filter": "~0.5.4",
+    "angular-materialize": "*",
+    "ngstorage": "~0.3.7",
+    "jquery": "~2.1.4"
+  }
+}

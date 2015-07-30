@@ -1,0 +1,80 @@
+
+    $scope.$storage.cursos = [
+      {id: 1, nome: 'Sistemas de Informação'},
+      {id: 2, nome: 'Engenharia da Computação'}
+    ];
+
+    $scope.$storage.turmas = [
+      {id: 1, nome: '2 SI'},
+      {id: 2, nome: '3 SI'},
+      {id: 3, nome: '4 SI'},
+      {id: 4, nome: '1 EC'},
+    ];
+
+    $scope.$storage.disciplinas = [
+      {id: 1, nome: 'Banco de Dados', sigla: 'BD'},
+      {id: 2, nome: 'Inteligência Artificial', sigla: 'IA'},
+      {id: 3, nome: 'Java', sigla: 'JV'},
+      {id: 4, nome: 'Abordagem Web', sigla: 'AW'},
+      {id: 5, nome: 'Matemática', sigla: 'MT'}
+    ];
+
+    $scope.$storage.professores = [
+      {id: 1, nome: 'Bruno'},
+      {id: 2, nome: 'Igor'},
+      {id: 3, nome: 'Júlio'},
+      {id: 4, nome: 'Vagner'}
+    ];
+
+    $scope.$storage.horarios = [
+      {id: 1, dia: 'Segunda', descricao: '19:15-20:30'},
+      {id: 2, dia: 'Segunda', descricao: '20:30-21:00'},
+      {id: 3, dia: 'Segunda', descricao: '21:05-22:50'},
+      {id: 4, dia: 'Segunda', descricao: '21:50-22:30'},
+
+      {id: 5, dia: 'Terça', descricao: '19:15-20:30'},
+      {id: 6, dia: 'Terça', descricao: '20:30-21:00'},
+      {id: 7, dia: 'Terça', descricao: '21:05-22:50'},
+      {id: 8, dia: 'Terça', descricao: '21:50-22:30'},
+
+      {id: 9, dia: 'Quarta', descricao: '19:15-20:30'},
+      {id: 10, dia: 'Quarta', descricao: '20:30-21:00'},
+      {id: 11, dia: 'Quarta', descricao: '21:05-22:50'},
+      {id: 12, dia: 'Quarta', descricao: '21:50-22:30'},
+
+      {id: 13, dia: 'Quinta', descricao: '19:15-20:30'},
+      {id: 14, dia: 'Quinta', descricao: '20:30-21:00'},
+      {id: 15, dia: 'Quinta', descricao: '21:05-22:50'},
+      {id: 16, dia: 'Quinta', descricao: '21:50-22:30'},
+
+      {id: 17, dia: 'Sexta', descricao: '19:15-20:30'},
+      {id: 18, dia: 'Sexta', descricao: '20:30-21:00'},
+      {id: 19, dia: 'Sexta', descricao: '21:05-22:50'},
+      {id: 20, dia: 'Sexta', descricao: '21:50-22:30'}
+    ];
+
+    //DISCIPLINAS QUE CADA PROFESSOR ESTÁ APTO A MINISTRAR CASO SEJA NECESSÁRIO
+    //UMA SUBSTITUIÇÃO POR OUTRO PROFESSOR COM HORÁRIO VAGO
+    $scope.$storage.professores_disciplinas = [
+      {professor_id: 1, disciplinas_id: [1,4]},
+      {professor_id: 2, disciplinas_id: [3]},
+      {professor_id: 3, disciplinas_id: [2]},
+      {professor_id: 4, disciplinas_id: [5]}
+    ];
+
+    //DISCIPLINAS DE CADA CURSO, COM SUA CARGA HORÁRIA E O PROFESSOR PREFERENCIAL
+    $scope.$storage.cursos_disciplinas = [
+      {id: 1, curso_id: 1, disciplina_id: 1, turma_id: 2, carga_horaria: 4, professor_id: 1},
+      {id: 2, curso_id: 1, disciplina_id: 2, turma_id: 3, carga_horaria: 4, professor_id: 3},
+      {id: 3, curso_id: 1, disciplina_id: 3, turma_id: 2, carga_horaria: 4, professor_id: 2},
+      {id: 4, curso_id: 1, disciplina_id: 4, turma_id: 1, carga_horaria: 2, professor_id: 1},
+      {id: 5, curso_id: 2, disciplina_id: 5, turma_id: 4, carga_horaria: 4, professor_id: 4}
+    ];
+
+    //HORARIO DISPONIVEL DE CADA PROFESSOR
+    $scope.$storage.professores_horarios = [
+        {professor_id: 1, horarios_id: [1,2,3,4,5,6,7,8,9,11,12,13,14,15,16]},
+        {professor_id: 2, horarios_id: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]},
+        {professor_id: 3, horarios_id: [1,2,3,4,5,6,7,9,10,11,12,13,14,15,16]},
+        {professor_id: 4, horarios_id: []}
+    ];

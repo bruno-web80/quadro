@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="section">
+    <!-- Turmas -->
+    <div class="card-panel">
+      <h5>Turmas</h5>
+      <div class="row">
+        <form class="col s12" ng-submit="save()">
+          <div>
+            <label for="turma_curso_id">Curso:</label>
+            <select id="turma_curso_id" name="turma_curso_id" class="browser-default" ng-model="turma.curso_id" required>
+                <option value="" disabled selected>Selecione uma opção</option>
+                <option ng-repeat="curso in cursos" value={{curso.id}}>{{curso.nome}}</option>
+            </select>
+          </div>
+          <div class="input-field">
+            <input id="turma_nome" value="" type="text" ng-model="turma.nome" required />
+            <label for="turma_nome">Nome da Turma</label>
+          </div>
+          <button type="submit" class="btn">Inserir</button>
+        </form>
+      </div>
+      <div class="row">
+        <div class="col s12" ng-repeat="cTurmas in turmas | orderBy:['curso_id','nome'] | groupBy:'curso_id'">
+          <h5>{{cTurmas[0].curso.nome}}</h5>
+          <ul class="collapsible popout" data-collapsible="accordion" watch>
+            <li ng-repeat="turma in cTurmas">
+              <div class="collapsible-header">{{turma.nome}}<a class="secondary-content" ng-click="delete(turma.id)"><i class="material-icons">delete</i></a></div>
+              <div class="collapsible-body">
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

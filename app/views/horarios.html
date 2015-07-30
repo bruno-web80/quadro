@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="section">
+    <!-- Horários -->
+    <div class="card-panel">
+      <h5>Horários</h5>
+      <div class="row">
+        <form class="col s12" ng-submit="save()">
+          <div class="row">
+            <div class="col m6">
+              <label for="horario_periodo">Período:</label>
+              <select id="horario_periodo" name="horario_periodo" class="browser-default" ng-model="horario.periodo" required>
+                  <option value="" disabled selected>Selecione uma opção</option>
+                  <option ng-repeat="periodo in periodos">{{periodo}}</option>
+              </select>
+            </div>
+            <div class="col m6">
+              <label for="horario_dia">Dia da Semana:</label>
+              <select id="horario_dia" name="horario_dia" class="browser-default" ng-model="horario.dia" required>
+                  <option value="" disabled selected>Selecione uma opção</option>
+                  <option ng-repeat="dia in dias">{{dia}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-field">
+            <input id="horario_descricao" value="" type="text" ng-model="horario.descricao" required />
+            <label for="horario_descricao">Descrição:</label>
+          </div>
+          <button type="submit" class="btn">Inserir</button>
+        </form>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <div ng-repeat="pHorario in horarios | orderBy:'periodo' | groupBy:'periodo'">
+            <h5>{{pHorario[0].periodo}}</h5>
+            <table class="bordered hoverable">
+              <thead>
+              </thead>
+              <tbody>
+                <tr ng-repeat="dHorario in pHorario | orderBy:'descricao' | groupBy:'dia'">
+                  <td>{{dHorario[0].dia}}</td>
+                  <td ng-repeat="hor in dHorario">{{hor.descricao}}<a class="mouse-click" ng-click="delete(hor.id)"><i class="material-icons">delete</i></a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
