@@ -14,17 +14,20 @@ angular.module('controllers').controller('DisciplinasController', ['$scope','Dis
       });
     }; resetForm();
 
-    //RECUPERA TODOS OS REGISTROS (init)
-    Disciplina.getAll().then(function(retorno){
-      $scope.disciplinas = retorno;
-    },function(erro){
-      alert(erro);
-    });
+    var getAll = function() {
+      //RECUPERA TODOS OS REGISTROS (init)
+      Disciplina.getAll().then(function(retorno){
+        $scope.disciplinas = retorno;
+      },function(erro){
+        alert(erro);
+      });
+    }; getAll();
 
     //EXCLUI UM REGISTRO
     $scope.delete = function(_id) {
       if (confirm("Tem certeza de que deseja excluir esse registro?")==true) {
         Disciplina.delete(_id).then(function(retorno){
+          getAll();
         },function(erro){
           alert(erro);
         });
@@ -35,6 +38,7 @@ angular.module('controllers').controller('DisciplinasController', ['$scope','Dis
     $scope.save = function() {
       Disciplina.save($scope.disciplina).then(function(retorno){
           resetForm();
+          getAll();
       },function(erro){
           alert(erro);
       });

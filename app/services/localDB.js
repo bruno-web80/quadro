@@ -105,6 +105,9 @@ angular.module('services').service('localDB', ['$localStorage','$q', function($l
   /* Método que busca o proximo ID desse objeto
   */
   this.getNewId = function(_obj) {
+    if ($localStorage[_obj]==undefined) {
+      $localStorage[_obj]=[];  
+    }
     var lastObj = $localStorage[_obj][$localStorage[_obj].length-1];
     if (lastObj==undefined || lastObj.id==undefined) {
       return 1;
@@ -153,7 +156,6 @@ angular.module('services').service('localDB', ['$localStorage','$q', function($l
     } else {
       try {
         //VERIFICA SE É UM REGISTRO NOVO OU NÃO
-        console.log(_data);
         if (_data.id == undefined) {
           var newObj = angular.extend({}, _data, {id: this.getNewId(_obj)});
           $localStorage[_obj].push(newObj);

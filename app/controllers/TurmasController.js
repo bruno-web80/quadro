@@ -14,15 +14,14 @@ angular.module('controllers').controller('TurmasController', ['$scope','Turma','
       });
     }; resetForm();
 
-    //RECUPERA TODOS OS REGISTROS (init)
-    Curso.getAll().then(function(retorno){
-      $scope.cursos = retorno;
-    },function(erro){
-      alert(erro);
-    });
+    var getAll = function() {
+      //RECUPERA TODOS OS REGISTROS (init)
+      Curso.getAll().then(function(retorno){
+        $scope.cursos = retorno;
+      },function(erro){
+        alert(erro);
+      });
 
-    //RECUPERA TODOS OS REGISTROS (init)
-    var getAllTurmas = function() {
       Turma.getAll().then(function(retorno){
         $scope.turmas = retorno;
         angular.forEach($scope.turmas, function(obj,i){
@@ -38,14 +37,13 @@ angular.module('controllers').controller('TurmasController', ['$scope','Turma','
       },function(erro){
         alert(erro);
       });
-    }; getAllTurmas();
+    }; getAll();
 
     //EXCLUI UM REGISTRO
     $scope.delete = function(_id) {
       if (confirm("Tem certeza de que deseja excluir esse registro?")==true) {
         Turma.delete(_id).then(function(retorno){
-          //REFAZER getAllTurmas
-          getAllTurmas();
+          getAll();
         },function(erro){
           alert(erro);
         });
@@ -56,8 +54,7 @@ angular.module('controllers').controller('TurmasController', ['$scope','Turma','
     $scope.save = function() {
       Turma.save($scope.turma).then(function(retorno){
           resetForm();
-          //REFAZER getAllTurmas
-          getAllTurmas();
+          getAll();
       },function(erro){
           alert(erro);
       });

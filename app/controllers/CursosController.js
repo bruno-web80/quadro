@@ -14,17 +14,20 @@ angular.module('controllers').controller('CursosController', ['$scope','Curso', 
       });
     }; resetForm();
 
-    //RECUPERA TODOS OS REGISTROS (init)
-    Curso.getAll().then(function(retorno){
-      $scope.cursos = retorno;
-    },function(erro){
-      alert(erro);
-    });
+    var getAll = function() {
+      //RECUPERA TODOS OS REGISTROS (init)
+      Curso.getAll().then(function(retorno){
+        $scope.cursos = retorno;
+      },function(erro){
+        alert(erro);
+      });
+    }; getAll();
 
     //EXCLUI UM REGISTRO
     $scope.delete = function(_id) {
       if (confirm("Tem certeza de que deseja excluir esse registro?")==true) {
         Curso.delete(_id).then(function(retorno){
+          getAll();
         },function(erro){
           alert(erro);
         });
@@ -35,6 +38,7 @@ angular.module('controllers').controller('CursosController', ['$scope','Curso', 
     $scope.save = function() {
       Curso.save($scope.curso).then(function(retorno){
           resetForm();
+          getAll();
       },function(erro){
           alert(erro);
       });
