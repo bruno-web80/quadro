@@ -34,7 +34,7 @@ angular.module('controllers').controller('ProfessoresController', ['$scope','Pro
       },function(erro){
         alert(erro);
       });
-    }
+    }; getAll();
 
     //EXCLUI UM REGISTRO
     $scope.delete = function(_id) {
